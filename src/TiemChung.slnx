@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="TiemChung.Api/TiemChung.Api.csproj" />
+  <Project Path="TiemChung.Application/TiemChung.Application.csproj" />
+  <Project Path="TiemChung.Domain/TiemChung.Domain.csproj" />
+  <Project Path="TiemChung.Infrastructure/TiemChung.Infrastructure.csproj" />
+</Solution>
