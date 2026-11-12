@@ -1,0 +1,24 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+.vs/
+*.log
+# Cấu hình có thể chứa mật khẩu
+appsettings.Development.json
+appsettings.Local.json
+*.pfx
+.env
+.env.*
+# Node / React
+node_modules/
+dist/
+.vite/
+# Sao lưu CSDL
+*.bak
+# Hệ điều hành / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
