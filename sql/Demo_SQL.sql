@@ -22,11 +22,16 @@ ORDER BY lo.HanDung;
 GO
 
 -- [2] TRUY VET THEO LO: lo nay da tiem cho nhung ai? (doi 'VX-2409-A' bang so lo can tra)
-SELECT * FROM vw_TruyVetTheoLo WHERE SoLo = 'JE-01' ORDER BY NgayGioTiem;
+SELECT * FROM vw_TruyVetTheoLo WHERE SoLo = 'HPVDAT2026' ORDER BY NgayGioTiem;
 GO
 
 -- [3] TRUY VET THEO NGUOI: nguoi nay da tiem bang lo nao?
-SELECT * FROM vw_TruyVetTheoLo WHERE HoTen LIKE N'%Tấn Trường%' ORDER BY NgayGioTiem;
+SELECT HoTen, SoDienThoai, NguoiTiemId,
+       SoLo, Vaccine, NhaSanXuat, QuocGia,
+       NgayGioTiem, NhanVien
+FROM vw_TruyVetTheoLo
+WHERE HoTen LIKE N'%Trang Khanh%'
+ORDER BY NgayGioTiem;
 GO
 -- [4] Doi chieu ton kho: cot Khop phai = 1 het (Nhap - da tiem - hong/hao hut/huy = SoLuongCon)
 SELECT * FROM vw_DoiChieuTonLo;
@@ -208,6 +213,4 @@ BEGIN CATCH
 END CATCH;
 ROLLBACK TRAN;
 GO
-SELECT * FROM Vaccine ORDER By Id DESC; 
-SELECT * FROM NguoiDung ORDER By Id DESC; 
-SELECT * FROM LichTiem  ORDER By Id DESC;
+
