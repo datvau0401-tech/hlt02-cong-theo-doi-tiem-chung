@@ -18,10 +18,11 @@ Hệ thống quản lý người tiêm, vaccine và lô vaccine (kèm nhà sản
 ## Cấu trúc thư mục
 | Thư mục | Nội dung |
 |---|---|
-| `TiemChung/` | Mã nguồn API (.NET) và giao diện (React) |
+| `project/` | Mã nguồn API (.NET) và giao diện (React) |
 | `sql/` | Script tạo CSDL, nạp dữ liệu demo, truy vấn demo |
-| `docs/sodo/` | Sơ đồ (file `.mmd` và `.drawio`) |
-| `docs/anh/` | Ảnh chụp màn hình |
+| `Sodo/` | Sơ đồ: file `.drawio` và ảnh `.png` theo số hình trong báo cáo |
+| `AnhSanPham/` | Ảnh chụp màn hình sản phẩm (Chương VI) |
+| `HTL_02_1250080032.docx` | Báo cáo đồ án (bản Word) |
 
 ## Cài đặt và chạy
 Yêu cầu: .NET SDK, Node.js, SQL Server (hoặc SQL Server Express), SSMS.
