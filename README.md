@@ -25,13 +25,13 @@ Hệ thống quản lý người tiêm, vaccine và lô vaccine (kèm nhà sản
 | `HTL_02_1250080032.docx` | Báo cáo đồ án (bản Word) |
 
 ## Cài đặt và chạy
-Yêu cầu: .NET SDK, Node.js, SQL Server (hoặc SQL Server Express), SSMS.
+Yêu cầu: Visual Studio Code (cài thêm tiện ích C# Dev Kit), .NET SDK 8 trở lên (đã chạy với bản 10.0.404), Node.js 18 trở lên (đã chạy với bản v22.21.0), SQL Server (hoặc SQL Server Express), SQL Server Management Studio (SSMS).
 
 1. **Tạo CSDL:** mở SSMS, chạy `sql/TaoCSDL_DayDu.sql`.
 2. **Nạp dữ liệu demo (chạy 1 lần):** chọn CSDL `TiemChungCongDong`, chạy `sql/Seed_DemoData.sql`.
 3. **Cấu hình chuỗi kết nối:** sửa `ConnectionStrings` trong `appsettings.json` của dự án Api cho đúng máy của bạn (không đưa mật khẩu thật lên GitHub).
-4. **Chạy API:** vào thư mục dự án Api, chạy `dotnet run` (mặc định cổng 5080).
-5. **Chạy giao diện:** vào thư mục React, chạy `npm install` rồi `npm run dev`, mở địa chỉ Vite hiển thị (giao diện gọi `/api` qua proxy tới cổng 5080).
+4. **Chạy API (trong VS Code):** mở thư mục `project` bằng VS Code (File, Open Folder), mở Terminal (Ctrl + `), chạy `cd TiemChung.Api` rồi `dotnet run` (mặc định cổng 5080).
+5. **Chạy giao diện (terminal thứ hai trong VS Code):** chạy `cd tiemchung-web`, rồi `npm install` và `npm run dev`, mở địa chỉ Vite hiển thị (giao diện gọi `/api` qua proxy tới cổng 5080).
 
 ## Tài khoản demo
 | Vai trò | Tên đăng nhập | Mật khẩu |
