@@ -1,0 +1,50 @@
+@startuml
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam roundCorner 8
+skinparam ArrowColor #1F3864
+skinparam ClassBorderColor #1F3864
+skinparam ClassBackgroundColor #FFFFFF
+skinparam ActorBorderColor #1F3864
+skinparam usecaseBorderColor #1F3864
+skinparam usecaseBackgroundColor #EAF0FA
+title Sơ đồ use case tổng quát – Cổng theo dõi tiêm chủng cộng đồng
+left to right direction
+actor "Người dân" as ND
+actor "Nhân viên y tế" as NV
+actor "Quản trị viên" as QT
+actor "Máy chủ OIDC" as OIDC <<hệ thống ngoài>>
+actor "Dịch vụ Email/SMS" as GW <<hệ thống ngoài>>
+rectangle "Cổng theo dõi tiêm chủng cộng đồng" {
+  usecase "UC01 Đăng nhập" as UC01
+  usecase "UC02 Quản lý người tiêm" as UC02
+  usecase "UC03 Quản lý vaccine và lô vaccine" as UC03
+  usecase "UC04 Quản lý chống chỉ định" as UC04
+  usecase "UC05 Quản lý lịch tiêm" as UC05
+  usecase "UC06 Ghi nhận mũi tiêm" as UC06
+  usecase "UC07 Nhắc lịch tiêm" as UC07
+  usecase "UC08 Truy vết lô vaccine" as UC08
+  usecase "UC09 Hiệu chỉnh bản ghi và xem lịch sử" as UC09
+  usecase "UC10 Quản trị tài khoản và tham số" as UC10
+  usecase "UC11 Xem lịch và hồ sơ tiêm của tôi" as UC11
+}
+ND --> UC01
+NV --> UC01
+QT --> UC01
+UC01 --> OIDC
+ND --> UC11
+NV --> UC02
+NV --> UC03
+NV --> UC04
+NV --> UC05
+NV --> UC06
+NV --> UC08
+NV --> UC09
+QT --> UC03
+QT --> UC08
+QT --> UC09
+QT --> UC10
+UC07 --> GW
+QT --> UC07
+@enduml

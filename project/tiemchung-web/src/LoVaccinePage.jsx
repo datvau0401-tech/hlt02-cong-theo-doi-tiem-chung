@@ -10,13 +10,15 @@ function tinhTrang(hanDung) {
 export default function LoVaccinePage() {
   const [vaccines, setVaccines] = useState([])
   const [lots, setLots] = useState([])
-  const [form, setForm] = useState({ vaccineId: '', soLo: '', hanDung: '', soLuongNhap: '' })
+  const [nsx, setNsx] = useState([])
+  const [form, setForm] = useState({ vaccineId: '', nhaSanXuatId: '', soLo: '', ngaySanXuat: '', hanDung: '', soLuongNhap: '' })
   const [msg, setMsg] = useState(null)
 
   async function load() {
-    const [v, l] = await Promise.all([fetch('/api/vaccine'), fetch('/api/lo-vaccine')])
+    const [v, l, n] = await Promise.all([fetch('/api/vaccine'), fetch('/api/lo-vaccine'), fetch('/api/lo-vaccine/nha-san-xuat')])
     setVaccines(await v.json())
     setLots(await l.json())
+    setNsx(await n.json())
   }
 
   useEffect(() => {
@@ -33,14 +35,16 @@ export default function LoVaccinePage() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         vaccineId: Number(form.vaccineId),
+        nhaSanXuatId: Number(form.nhaSanXuatId),
         soLo: form.soLo,
+        ngaySanXuat: form.ngaySanXuat || null,
         hanDung: form.hanDung,
         soLuongNhap: Number(form.soLuongNhap),
       }),
     })
     if (res.ok) {
       setMsg({ type: 'ok', text: 'Đã nhập lô mới.' })
-      setForm({ ...form, soLo: '', hanDung: '', soLuongNhap: '' })
+      setForm({ ...form, soLo: '', ngaySanXuat: '', hanDung: '', soLuongNhap: '' })
       load()
     } else {
       const b = await res.json().catch(() => null)
@@ -61,8 +65,17 @@ export default function LoVaccinePage() {
               {vaccines.map((v) => <option key={v.id} value={v.id}>{v.ten}</option>)}
             </select>
           </label>
+          <label>Nơi sản xuất
+            <select value={form.nhaSanXuatId} onChange={set('nhaSanXuatId')} required>
+              <option value="">Chọn...</option>
+              {nsx.map((n) => <option key={n.id} value={n.id}>{n.ten} ({n.quocGia})</option>)}
+            </select>
+          </label>
           <label>Số lô
             <input value={form.soLo} onChange={set('soLo')} required />
+          </label>
+          <label>Ngày sản xuất
+            <input type="date" value={form.ngaySanXuat} onChange={set('ngaySanXuat')} />
           </label>
           <label>Hạn dùng
             <input type="date" value={form.hanDung} onChange={set('hanDung')} required />
@@ -80,14 +93,14 @@ export default function LoVaccinePage() {
         <div className="tw">
           <table>
             <thead>
-              <tr><th>Số lô</th><th>Vaccine</th><th>Hạn dùng</th><th>Nhập</th><th>Còn</th><th>Tình trạng</th></tr>
+              <tr><th>Số lô</th><th>Vaccine</th><th>Nơi sản xuất</th><th>Ngày SX</th><th>Hạn dùng</th><th>Nhập</th><th>Còn</th><th>Tình trạng</th></tr>
             </thead>
             <tbody>
               {lots.map((l) => {
                 const [text, cls] = tinhTrang(l.hanDung)
                 return (
                   <tr key={l.id}>
-                    <td>{l.soLo}</td><td>{l.vaccine}</td><td>{l.hanDung}</td>
+                    <td>{l.soLo}</td><td>{l.vaccine}</td><td>{l.nhaSanXuat} ({l.quocGia})</td><td>{l.ngaySanXuat ?? '—'}</td><td>{l.hanDung}</td>
                     <td>{l.soLuongNhap}</td><td>{l.soLuongCon}</td>
                     <td><span className={'tag ' + cls}>{text}</span></td>
                   </tr>

@@ -4,8 +4,29 @@ using TiemChung.Domain.Entities;
 
 namespace TiemChung.Infrastructure.Repositories;
 
-public class VaccineRepository(AppDbContext db) : IVaccineRepository
+public class LoVaccineRepository(AppDbContext db) : ILoVaccineRepository
 {
-    public Task<List<Vaccine>> ListAsync() => db.Vaccines.OrderBy(x => x.Ten).ToListAsync();
-    public Task<bool> ExistsAsync(int id) => db.Vaccines.AnyAsync(x => x.Id == id);
+    private IQueryable<LoVaccine> Query() =>
+        db.LoVaccines.Include(x => x.Vaccine).Include(x => x.NhaSanXuat);
+
+    public Task<List<LoVaccine>> ListAsync() =>
+        Query().AsNoTracking().OrderBy(x => x.HanDung).ToListAsync();
+
+    public Task<LoVaccine?> GetAsync(int id) =>
+        Query().FirstOrDefaultAsync(x => x.Id == id);
+
+    public Task<bool> ExistsAsync(int vaccineId, string soLo) =>
+        db.LoVaccines.AnyAsync(x => x.VaccineId == vaccineId && x.SoLo == soLo);
+
+    public async Task AddAsync(LoVaccine lo)
+    {
+        db.LoVaccines.Add(lo);
+        await db.SaveChangesAsync();
+    }
+
+    public Task<List<NhaSanXuat>> ListNhaSanXuatAsync() =>
+        db.NhaSanXuats.AsNoTracking().OrderBy(x => x.Ten).ToListAsync();
+
+    public Task<bool> NhaSanXuatExistsAsync(int id) =>
+        db.NhaSanXuats.AnyAsync(x => x.Id == id);
 }

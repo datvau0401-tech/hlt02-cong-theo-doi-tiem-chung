@@ -11,6 +11,9 @@ public class LoVaccineController(LoVaccineService service) : ControllerBase
     [HttpGet]
     public async Task<IActionResult> List() => Ok(await service.ListAsync());
 
+    [HttpGet("nha-san-xuat")]
+    public async Task<IActionResult> ListNhaSanXuat() => Ok(await service.ListNhaSanXuatAsync());
+
     [HttpPost]
     public async Task<IActionResult> Create(CreateLoVaccineRequest req)
     {
